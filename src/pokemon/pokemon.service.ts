@@ -68,8 +68,10 @@ export class PokemonService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pokemon`;
+  async remove(id: string) {
+    //forma tradicional es usando this.pokemonModel.findByIdAndDelete para usar customPipes eventualmente
+    const pokemon = await this.findOne(id); //con findOne eliminariamos por termino como no, o name
+    await pokemon.deleteOne();
   }
 
   private handleExceptions(error: any) {
