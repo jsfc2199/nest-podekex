@@ -75,8 +75,11 @@ export class PokemonService {
 
     //lo anterior funciona correctamente, pero queremos eliminar bsado siempre en el id, y asegurandonos que sea un mongo id
     //con la implementacion del custom pipe ya podemos usar el findByIDAndDelete
-    const result = this.pokemonModel.findByIdAndDelete(id);
-    return result;
+    // const result = await this.pokemonModel.findByIdAndDelete(id);
+    const { deletedCount } = await this.pokemonModel.deleteOne({ _id: id });
+    if (deletedCount === 0)
+      throw new BadRequestException(`Pokemon with id ${id}, not found`);
+    return;
   }
 
   private handleExceptions(error: any) {
