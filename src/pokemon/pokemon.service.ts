@@ -70,8 +70,13 @@ export class PokemonService {
 
   async remove(id: string) {
     //forma tradicional es usando this.pokemonModel.findByIdAndDelete para usar customPipes eventualmente
-    const pokemon = await this.findOne(id); //con findOne eliminariamos por termino como no, o name
-    await pokemon.deleteOne();
+    // const pokemon = await this.findOne(id); //con findOne eliminariamos por termino como no, o name
+    // await pokemon.deleteOne();
+
+    //lo anterior funciona correctamente, pero queremos eliminar bsado siempre en el id, y asegurandonos que sea un mongo id
+    //con la implementacion del custom pipe ya podemos usar el findByIDAndDelete
+    const result = this.pokemonModel.findByIdAndDelete(id);
+    return result;
   }
 
   private handleExceptions(error: any) {
