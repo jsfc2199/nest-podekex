@@ -17,3 +17,7 @@ npm i -g @nestjs/cli
 ```
 docker-compose up -d
 ```
+5. Reconstruir base de datos con seed
+```
+http://localhost:3000/api/v2/seed
+```
